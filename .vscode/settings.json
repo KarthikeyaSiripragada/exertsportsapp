@@ -1,0 +1,9 @@
+{
+  // Keep normal CSS validation on…
+  "css.validate": true,
+  // …but ignore unknown at-rules like @tailwind, @apply, @screen
+  "css.lint.unknownAtRules": "ignore",
+  // Likewise if you ever edit SCSS/LESS files:
+  "scss.lint.unknownAtRules": "ignore",
+  "less.lint.unknownAtRules": "ignore"
+}
