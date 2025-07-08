@@ -1,36 +1,33 @@
-import NextAuth from 'next-auth';
-import CredentialsProvider from 'next-auth/providers/credentials';
+// app/api/auth/[...nextauth]/route.js
+import NextAuth from 'next-auth'
+import CredentialsProvider from 'next-auth/providers/credentials'
+import GitHubProvider from 'next-auth/providers/github'
+import GoogleProvider from 'next-auth/providers/google'
 
 export const authOptions = {
   providers: [
     CredentialsProvider({
-      name: 'Email',
-      credentials: {
-        email: { label: 'Email', type: 'email' },
-        password: { label: 'Password', type: 'password' }
-      },
-      async authorize(creds) {
-        // MOCK user lookup: accept any nonempty email/password
-        if (creds.email && creds.password) {
-          const role = creds.email.includes('coach') ? 'coach' : 'athlete';
-          return { id: creds.email, email: creds.email, role };
+      name: 'Credentials',
+      credentials: { /* email/password fields */ },
+      authorize: async (creds) => {
+        // your user lookup here
+        if (creds.email === 'demo@demo.com' && creds.password === 'demo') {
+          return { id: 1, email: 'demo@demo.com' }
         }
-        return null;
+        return null
       }
+    }),
+    GitHubProvider({
+      clientId: process.env.GITHUB_ID,
+      clientSecret: process.env.GITHUB_SECRET
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_ID,
+      clientSecret: process.env.GOOGLE_SECRET
     })
   ],
-  callbacks: {
-    async jwt({ token, user }) {
-      if (user) token.role = user.role;
-      return token;
-    },
-    async session({ session, token }) {
-      session.user.role = token.role;
-      return session;
-    }
-  },
+  secret: process.env.NEXTAUTH_SECRET,
   session: { strategy: 'jwt' },
-  pages: { signIn: '/login' }
-};
+}
 
-export default NextAuth(authOptions);
+export default NextAuth(authOptions)

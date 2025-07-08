@@ -2,8 +2,8 @@
 
 import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import CoachPage   from '@/Coaches/CoachPage.jsx';
-import AthletePage from '@/Athlete/AthletePage.jsx';
+import CoachPage   from '../Coaches/CoachPage.jsx'
+import AthletePage from '../Athlete/AthletePage.jsx'
 
 export default function DashboardPage() {
   const { data: session, status } = useSession();
