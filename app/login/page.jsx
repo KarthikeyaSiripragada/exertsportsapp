@@ -1,144 +1,74 @@
-// app/register/page.jsx
+// app/login/page.jsx
 'use client'
 
-import { useState } from 'react'
-import { signIn, useSession } from 'next-auth/react'
-import { useRouter }        from 'next/navigation'
-import { Github }           from 'lucide-react'
-import { SiGoogle }         from 'react-icons/si'
+import { useState, useEffect } from 'react'
+import { useRouter }             from 'next/navigation'
+import {
+  useSupabaseClient,
+  useSession
+} from '@supabase/auth-helpers-react'
 
-export default function RegisterPage() {
-  const { data: session } = useSession()
-  const router = useRouter()
+export default function LoginPage() {
+  const session  = useSession()
+  const supabase = useSupabaseClient()
+  const router   = useRouter()
+  const [email, setEmail]     = useState('')
+  const [pass,  setPass]      = useState('')
+  const [err,   setErr]       = useState(null)
 
-  // only one initial arg here
-  const [role,  setRole]  = useState<'athlete'|'coach'>('athlete')
-  const [email, setEmail] = useState('')
-  const [pass,  setPass]  = useState('')
-  const [error, setError] = useState('')
-
-  // redirect if already signed in
-  if (session) {
-    router.push('/dashboard')
-    return null
-  }
+  useEffect(() => {
+    if (session) router.push('/dashboard')
+  }, [session])
 
   const onSubmit = async e => {
     e.preventDefault()
-    setError('')
-
-    // call your real registration endpoint here…
-    // For demo: immediately sign in via credentials provider:
-    const res = await signIn('credentials', {
-      redirect: false,
-      email,
-      password: pass,
-      role, // pass your chosen role to backend next
+    setErr(null)
+    const { error } = await supabase.auth.signInWithPassword({
+      email, password: pass
     })
-
-    if (res?.error) {
-      setError('Registration failed')
-    } else {
-      router.push('/dashboard')
-    }
+    if (error) setErr(error.message)
+    else router.push('/dashboard')
   }
 
   return (
     <div className="min-h-screen bg-gray-900 flex items-center justify-center p-4">
-      <div className="bg-gray-800 rounded-xl shadow-xl w-full max-w-md p-8 space-y-6">
-        <h1 className="text-2xl font-semibold text-white text-center">
-          Create an account
+      <form
+        onSubmit={onSubmit}
+        className="bg-gray-800 p-8 rounded-lg w-full max-w-md space-y-4"
+      >
+        <h1 className="text-white text-2xl text-center">
+          Log in to your account
         </h1>
-        <p className="text-gray-400 text-center">
-          Pick your role, then enter credentials
-        </p>
+        {err && <p className="text-red-400">{err}</p>}
 
-        {/* — Role toggle — */}
-        <div className="flex space-x-2 justify-center mb-4">
-          {['athlete','coach'].map(r => (
-            <button
-              key={r}
-              onClick={() => setRole(r)}
-              className={
-                `px-4 py-2 rounded-t-lg font-medium transition-colors ` +
-                (role === r
-                  ? 'bg-white text-gray-900'
-                  : 'bg-gray-700 text-gray-300 hover:bg-gray-600')
-              }
-            >
-              {r.charAt(0).toUpperCase() + r.slice(1)}
-            </button>
-          ))}
-        </div>
+        <input
+          type="email"
+          required
+          placeholder="Email"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+          className="w-full px-3 py-2 rounded bg-gray-700 text-white"
+        />
+        <input
+          type="password"
+          required
+          placeholder="Password"
+          value={pass}
+          onChange={e => setPass(e.target.value)}
+          className="w-full px-3 py-2 rounded bg-gray-700 text-white"
+        />
 
-        {/* — OAuth buttons — */}
-        <div className="flex gap-4">
-          <button
-            onClick={() => signIn('github')}
-            className="flex-1 flex items-center justify-center gap-2 bg-gray-700 hover:bg-gray-600 text-white py-2 rounded"
-          >
-            <Github size={18}/> GitHub
-          </button>
-          <button
-            onClick={() => signIn('google')}
-            className="flex-1 flex items-center justify-center gap-2 bg-gray-700 hover:bg-gray-600 text-white py-2 rounded"
-          >
-            <SiGoogle size={18}/> Google
-          </button>
-        </div>
-
-        <div className="flex items-center text-gray-400 text-sm">
-          <span className="flex-grow border-b border-gray-600"></span>
-          <span className="px-3 lowercase">or continue with</span>
-          <span className="flex-grow border-b border-gray-600"></span>
-        </div>
-
-        {/* — Registration Form — */}
-        <form onSubmit={onSubmit} className="space-y-4">
-          {error && (
-            <p className="text-red-400 text-sm text-center">{error}</p>
-          )}
-
-          <div>
-            <label className="block text-gray-300 mb-1">Email</label>
-            <input
-              type="email"
-              required
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-              className="w-full px-3 py-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none"
-              placeholder="you@example.com"
-            />
-          </div>
-
-          <div>
-            <label className="block text-gray-300 mb-1">Password</label>
-            <input
-              type="password"
-              required
-              value={pass}
-              onChange={e => setPass(e.target.value)}
-              className="w-full px-3 py-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none"
-              placeholder="••••••••"
-            />
-          </div>
-
-          <button
-            type="submit"
-            className="w-full bg-green-500 hover:bg-green-600 text-white font-medium py-2 rounded"
-          >
-            Create account as{' '}
-            {role.charAt(0).toUpperCase() + role.slice(1)}
-          </button>
-        </form>
+        <button className="w-full bg-green-500 py-2 rounded text-white">
+          Log in
+        </button>
 
         <p className="text-gray-400 text-center text-sm">
-          Already have one?{' '}
-          <a href="/login" className="text-green-400 hover:underline">
-            Log in
+          Don’t have an account?{' '}
+          <a href="/register" className="text-green-400 hover:underline">
+            Register
           </a>
         </p>
-      </div>
+      </form>
     </div>
   )
 }

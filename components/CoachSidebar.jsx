@@ -1,62 +1,28 @@
-import React from 'react';
-'use client';
+// components/CoachSidebar.jsx
+'use client'
+import React from 'react'
+
 export default function CoachSidebar({ active, onSelect }) {
   const items = [
     { key: 'profile', label: 'My Profile' },
     { key: 'spots',   label: 'Training Spots' },
-  ];
-
+    // …etc…
+  ]
   return (
-    <nav style={nav}>
-      <ul style={ul}>
-        {items.map(item => (
-          <li key={item.key} style={li}>
-            <button
-              onClick={() => onSelect(item.key)}
-              style={{
-                ...button,
-                ...(active === item.key ? activeButton : {})
-              }}
-            >
-              {item.label}
-            </button>
-          </li>
-        ))}
-      </ul>
-    </nav>
-  );
+    <aside className="w-64 bg-gray-200 min-h-screen p-4">
+      {items.map(item => (
+        <button
+          key={item.key}
+          onClick={() => onSelect(item.key)}
+          className={`block w-full text-left py-2 px-3 mb-2 rounded ${
+            active === item.key
+              ? 'bg-gray-400 text-white'
+              : 'hover:bg-gray-300'
+          }`}
+        >
+          {item.label}
+        </button>
+      ))}
+    </aside>
+  )
 }
-
-// Inline styles
-const nav = {
-  width: 180,
-  borderRight: '1px solid #ddd',
-  boxSizing: 'border-box',
-  padding: '1rem 0',
-};
-
-const ul = {
-  listStyle: 'none',
-  margin: 0,
-  padding: 0,
-};
-
-const li = {
-  marginBottom: '0.5rem',
-};
-
-const button = {
-  background: 'none',
-  border: 'none',
-  width: '100%',
-  textAlign: 'left',
-  padding: '0.5rem 1rem',
-  cursor: 'pointer',
-  fontSize: '1rem',
-  color: '#333',
-};
-
-const activeButton = {
-  backgroundColor: '#f0f0f0',
-  fontWeight: 'bold',
-};
