@@ -1,41 +1,52 @@
+// app/page.jsx
 'use client'
-import { useAuth } from '@/components/Providers'
+
 import Link from 'next/link'
+import '@/styles/page.css'
 
 export default function HomePage() {
-  const { session } = useAuth()
-
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-gray-100">
-      {!session ? (
-        <>
-          <h1 className="text-4xl font-bold mb-6">
-            Welcome to Sports Companion
-          </h1>
-          <div className="space-x-4">
-            {/* Directly style the Link, no inner <a> */}
-            <Link
-              href="/login"
-              className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-            >
-              Login
-            </Link>
-            <Link
-              href="/register"
-              className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
-            >
-              Register
-            </Link>
-          </div>
-        </>
-      ) : (
-        <Link
-          href="/dashboard"
-          className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700"
-        >
-          Go to Dashboard
+    <main className="home-container">
+      {/* Hero Section */}
+      <section className="hero">
+        <div className="hero-content">
+          <h1>Exert empowers athletes to reach new heights.</h1>
+          <p>Connect with verified coaches, register for competitions, and access essential resources—all in one place.</p>
+          <Link href="/login">
+            <button className="cta-button">Get Started—Join for Free</button>
+          </Link>
+        </div>
+      </section>
+
+      {/* About Exert Section */}
+      <section className="info-card about-us">
+        <h2>About Exert</h2>
+        <p>
+          Exert was built to bridge the gap between athletes and expert support. From personalized coaching to up-to-date competition schedules and anti-doping guidelines, we streamline your athletic journey.
+        </p>
+        <Link href="/about">
+          <button className="learn-more">Learn More</button>
         </Link>
-      )}
-    </div>
+      </section>
+
+      {/* Key Features Section */}
+      <section className="info-card features">
+        <h2>Key Features</h2>
+        <ul>
+          <li>
+            <strong>Verified Coaches:</strong> Browse and connect with certified professionals.
+          </li>
+          <li>
+            <strong>Competition Hub:</strong> Register for events and track schedules seamlessly.
+          </li>
+          <li>
+            <strong>Anti-Doping Info:</strong> Stay compliant with official guidelines and updates.
+          </li>
+          <li>
+            <strong>Community Support:</strong> Join forums, share experiences, and grow together.
+          </li>
+        </ul>
+      </section>
+    </main>
   )
 }

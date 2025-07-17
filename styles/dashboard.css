@@ -1,0 +1,111 @@
+/* styles/dashboard.css */
+
+:root {
+  --bg-start: #2d3748;
+  --bg-end: #1a202c;
+  --card-bg: rgba(255,255,255,0.03);
+  --accent: #48BB78;
+  --text-light: #EDF2F7;
+  --text-muted: #A0AEC0;
+  --shadow-light: rgba(0,0,0,0.5);
+}
+
+/* full-page gradient */
+.dashboard-container {
+  min-height: 100vh;
+  background: linear-gradient(120deg, var(--bg-start), var(--bg-end));
+  color: var(--text-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+/* center content and constrain width */
+.dashboard-inner {
+  width: 100%;
+  max-width: 960px;
+}
+
+/* header */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+.dashboard-header h1 {
+  font-size: 2.5rem;
+  margin: 0;
+}
+.dashboard-header p {
+  color: var(--text-muted);
+  text-transform: capitalize;
+}
+.nav-links {
+  display: flex;
+  gap: 1rem;
+}
+.nav-links a,
+.nav-links button {
+  color: var(--text-muted);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.nav-links a:hover,
+.nav-links button:hover {
+  color: var(--text-light);
+}
+
+/* grid of panels */
+.dashboard-panels {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+/* each panel card */
+.panel {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px var(--shadow-light);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.panel:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 24px var(--shadow-light);
+}
+.panel h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+.panel p {
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+.panel a {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.6rem 1.2rem;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.1s;
+}
+.panel a:hover {
+  background: #38A169;
+  transform: translateY(-2px);
+}
+
+/* loading state */
+.loading-text {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  padding: 2rem 0;
+}

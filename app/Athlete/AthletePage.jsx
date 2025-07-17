@@ -12,7 +12,7 @@ export default function AthletePage() {
       router.push('/')
     }
   }, [session, router])
-  if (!session) return null
+  if (!session) return nulla
   return (
     <div className="min-h-screen p-6 bg-white">
       <h2 className="text-2xl font-semibold mb-4">🏃 Athlete Dashboard</h2>

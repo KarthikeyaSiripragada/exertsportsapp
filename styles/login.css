@@ -1,0 +1,178 @@
+/* styles/login.css */
+
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: #1f2733;
+}
+
+/* Center the card */
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 1rem;
+}
+
+.login-card {
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  /* reduce horizontal padding so inputs sit closer to the left edge */
+  padding: 2rem 1rem;
+  width: 100%;
+  max-width: 380px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  text-align: center;
+}
+
+.info-pic {
+  display: block;
+  max-width: 80px;
+  margin: 0 auto 1rem;
+}
+
+.info-text {
+  color: #A0AEC0;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-header h1 {
+  color: #EDF2F7;
+  font-size: 1.75rem;
+  margin: 0 0 1rem;
+}
+
+.input-container {
+  text-align: left;
+  margin: 0 0 1rem 0; /* no extra left margin */
+}
+
+.input-container label {
+  display: block;
+  color: #A0AEC0;
+  font-size: 0.875rem;
+  margin-bottom: 0.25rem;
+}
+
+.input-container input {
+  width: 90%;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: none;
+  background: #2d3748;
+  color: #EDF2F7;
+  font-size: 1rem;
+}
+
+.forgot-link {
+  display: block;
+  text-align: right;
+  margin: 0 0 1rem 0;
+  color: #68D391;
+  font-size: 0.875rem;
+  text-decoration: none;
+}
+
+.forgot-link:hover {
+  text-decoration: underline;
+}
+
+.login-btn {
+  width: 100%;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 8px;
+  background: #48BB78;
+  color: #F7FAFC;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.login-btn:hover {
+  background: #38A169;
+}
+
+.login-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.divider {
+  margin: 1.5rem 0 1rem;
+  color: #A0AEC0;
+  font-size: 0.875rem;
+}
+
+.social-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 8px;
+  background: #2d3748;
+  color: #E2E8F0;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.social-btn:hover {
+  background: #4a5568;
+}
+
+.social-btn img {
+  height: 20px;
+}
+
+.register-text {
+  margin-top: 1.5rem;
+  color: #A0AEC0;
+  font-size: 0.875rem;
+}
+
+.register-text a {
+  color: #68D391;
+  text-decoration: none;
+}
+
+.register-text a:hover {
+  text-decoration: underline;
+}
+
+.error-text {
+  color: #FC8181;
+  margin-bottom: 1rem;
+}
+/* Role tabs above the form */
+.role-switch {
+  display: flex;
+  margin-bottom: 1rem;
+  gap: 0.5rem;
+}
+.role-switch button {
+  flex: 1;
+  padding: 0.75rem 0;
+  background: transparent;
+  border: 1px solid #A0AEC0;
+  border-radius: 8px;
+  color: #A0AEC0;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.role-switch button:hover {
+  background: rgba(255,255,255,0.1);
+}
+.role-switch button.active {
+  background: #48BB78;
+  color: #FFF;
+  border-color: #48BB78;
+}

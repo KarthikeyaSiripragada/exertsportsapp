@@ -1,5 +1,7 @@
+// app/layout.jsx
 import '@/styles/globals.css'
 import SupabaseProvider from '@/components/SupabaseProvider'
+import AuthListener     from '@/components/AuthListener'
 
 export const metadata = {
   title: 'Exert Sports App',
@@ -10,8 +12,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        {/* This is a Server Component, but SupabaseProvider will run only on the client */}
+        {/* SupabaseProvider is a client component that injects the auth context */}
         <SupabaseProvider>
+          {/* AuthListener needs to live inside the provider so it can subscribe */}
+          <AuthListener />
           {children}
         </SupabaseProvider>
       </body>
