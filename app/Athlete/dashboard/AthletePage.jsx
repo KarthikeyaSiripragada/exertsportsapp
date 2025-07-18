@@ -1,6 +1,6 @@
 // app/athlete/page.jsx
 'use client'
-import { useAuth } from '@/components/Providers'
+import { useAuth } from '@/app/components/Providers'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 
@@ -23,7 +23,7 @@ export default function AthletePage() {
 
 // app/coach/page.jsx
 'use client'
-import { useAuth } from '@/components/Providers'
+import { useAuth } from '@/app/components/Providers'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 

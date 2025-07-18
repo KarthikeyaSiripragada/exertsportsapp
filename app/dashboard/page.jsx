@@ -2,16 +2,17 @@
 'use client'
 
 import React, { useEffect } from 'react'
-import { useSession } from '@supabase/auth-helpers-react'
-import { useRouter } from 'next/navigation'
+import { useSession }        from '@supabase/auth-helpers-react'
+import { useRouter }         from 'next/navigation'
 
 export default function MainDashboard() {
   const session = useSession()
-  const router = useRouter()
+  const router  = useRouter()
 
-  // Redirect to login if not authenticated
+  // Redirect to login if explicitly signed out
   useEffect(() => {
-    if (session === null) {
+    if (session === undefined) return
+    if (!session) {
       router.replace('/login')
     }
   }, [session, router])
@@ -20,12 +21,13 @@ export default function MainDashboard() {
   if (session === undefined) {
     return (
       <div style={{ padding: '2rem', textAlign: 'center' }}>
-        Loading...
+        Loading…
       </div>
     )
   }
 
-  const { user } = session
+  // Once session is null we redirected already, so session is guaranteed
+  const user = session.user
   const role = user.user_metadata?.role || 'athlete'
 
   return (
@@ -35,18 +37,12 @@ export default function MainDashboard() {
 
       <div style={{ marginTop: '2rem' }}>
         {role === 'athlete' && (
-          <button
-            onClick={() => router.push('/athlete/dashboard')}
-            className="login-btn"
-          >
+          <button onClick={() => router.push('/athlete/dashboard')}>
             Go to Athlete Dashboard
           </button>
         )}
         {role === 'coach' && (
-          <button
-            onClick={() => router.push('/coach/dashboard')}
-            className="login-btn"
-          >
+          <button onClick={() => router.push('/coach/dashboard')}>
             Go to Coach Dashboard
           </button>
         )}

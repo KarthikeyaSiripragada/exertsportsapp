@@ -1,0 +1,106 @@
+/* styles/layout.css */
+
+/* Wrapper for sidebar + main content */
+.app-wrapper {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f3f4f6;
+}
+
+/* Sidebar styling */
+.sidebar {
+  width: 240px;
+  background-color: #1f2937;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 1rem;
+}
+
+/* Logo/title in sidebar */
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+/* Navigation links */
+.nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.nav-links a {
+  color: #d1d5db;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  transition: background 0.2s, color 0.2s;
+}
+.nav-links a:hover,
+.nav-links a.active {
+  background-color: #374151;
+  color: #fff;
+}
+
+/* Main content area */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header inside main content */
+.header {
+  padding: 1rem 2rem;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+.header h1 {
+  margin: 0;
+  font-size: 1.75rem;
+  color: #111827;
+}
+
+/* Page container for individual pages */
+.page-container {
+  flex: 1;
+  padding: 2rem;
+  background-color: #ffffff;
+}
+
+/* Footer styling */
+.footer {
+  padding: 1rem 2rem;
+  text-align: center;
+  background-color: #e5e7eb;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .app-wrapper {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    padding: 1rem;
+  }
+  .nav-links {
+    flex-direction: row;
+    gap: 0.5rem;
+    overflow-x: auto;
+  }
+  .main-content {
+    width: 100%;
+  }
+  .header, .footer {
+    text-align: center;
+    padding: 1rem;
+  }
+}
